@@ -3,10 +3,17 @@ import { Book } from "@/Types/bookType";
 import BookCard from "@/components/HomePage/BookCard";
 
 const getBooks = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/booksData.json`);
-  const data = await res.json();
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/booksData.json`,
+    );
+    const data = await res.json();
 
-  return data;
+    return data;
+  } catch (error) {
+    console.error("Error fetching books data:", error);
+    return [];
+  }
 };
 
 const Books = async () => {
