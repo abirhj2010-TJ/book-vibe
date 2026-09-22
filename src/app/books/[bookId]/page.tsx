@@ -25,7 +25,7 @@ const BookDetails = async ({ params }: BookDetailsProps) => {
     books = await res.json();
   } catch (error) {
     console.error("Failed to load book details:", error);
-    return [];
+    return [] as Book[];
   }
 
   const book: Book | undefined = books.find((book) => book.bookId === Number(bookId));
