@@ -13,7 +13,7 @@ const getBooks = async () => {
     return data;
   } catch (error) {
     console.error("Error fetching books data:", error);
-    return [] as Book[];
+    return [];
   }
 };
 
