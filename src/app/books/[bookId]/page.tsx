@@ -11,8 +11,22 @@ interface BookDetailsProps {
 const BookDetails = async ({ params }: BookDetailsProps) => {
   const { bookId } = await params;
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/booksData.json`);
-  const books: Book[] = await res.json();
+  let books: Book[] = [];
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/booksData.json`,
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch books");
+    }
+
+    books = await res.json();
+  } catch (error) {
+    console.error("Failed to load book details:", error);
+    return [];
+  }
 
   const book: Book | undefined = books.find((book) => book.bookId === Number(bookId));
 
